@@ -1,0 +1,2 @@
+- Abstract the process and create a module.
+- Expose only relevent content like Settings, etc.

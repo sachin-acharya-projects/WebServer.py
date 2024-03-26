@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+
+    display: grid;
+    place-content: center;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    
+    gap: 10px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 10px;
+
+    background-color: #cccccc62;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(1, 17, 19);
+    transition: 0.3s all linear;
+}
+
+a:hover {
+    color: orangered;
+}
+
+img {
+    width: 300px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
