@@ -2,13 +2,17 @@ from ..Types import *
 from ..Configurations.Settings.Settings import HOST, PORT, DEBUG
 from ..Utils.Request import Request
 from ..Utils.Response import Response
-import socket
+
+from dataclasses import dataclass
+from abc import ABC, abstractmethod
+from colorama import Fore, init
+
 import datetime
 import threading
-import sys
-from dataclasses import dataclass
-from colorama import Fore, init
-from abc import ABC, abstractmethod
+import atexit
+
+import socket
+
 
 __all__ = ["BaseServer"]
 
@@ -81,14 +85,17 @@ class BaseServer(ABC):
         data: str,
         content_type: str = "",
     ) -> int:
-        # status_code, status_text = status
-        
         if isinstance(data, str):
-            response = "HTTP/1.1 %s %s\r\nContent-Type: %s\r\n\r\n" % (*status, content_type) + data
+            response = (
+                "HTTP/1.1 %s %s\r\nContent-Type: %s\r\n\r\n" % (*status, content_type)
+                + data
+            )
             response = response.encode()
         else:
             response = (
-                "HTTP/1.1 %s %s\r\nContent-Type: %s\r\n\r\n".encode() % (*status, content_type) + data
+                "HTTP/1.1 %s %s\r\nContent-Type: %s\r\n\r\n".encode()
+                % (*status, content_type)
+                + data
             )
         try:
             status = client.send(response)
@@ -99,9 +106,7 @@ class BaseServer(ABC):
             return 0
 
     def run(self) -> None:
-        import atexit
-
-        def close(server: socket.socket) -> None:
+        def _close(server: socket.socket) -> None:
             try:
                 server.close()
             except OSError:
@@ -111,19 +116,20 @@ class BaseServer(ABC):
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((HOST, PORT))
         server.listen(5)
+        server.settimeout(1)
 
-        atexit.register(lambda: close(server))
+        atexit.register(lambda: _close(server))
         print("Server listening on http://%s:%s" % (HOST, str(PORT)))
 
-        while True:
-            try:
+        try:
+            while True:
                 try:
                     client_socket, _ = server.accept()
                     threading.Thread(
                         target=self.handleClient, args=(client_socket,)
                     ).start()
-                except SystemExit:
+                except TimeoutError:
                     ...
-            except KeyboardInterrupt:
-                server.close()
-                break
+        except KeyboardInterrupt:
+            _close(server)
+            exit(0)
