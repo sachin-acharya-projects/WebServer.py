@@ -39,12 +39,12 @@ class WebServer(BaseServer):
         # Handling Routing
         for route, route_info in self._routes.items():
             route_ = extract_route_pattern(route, request.path)
-            if route_:
+            if isinstance(route_, dict):
                 if not request.method in route_info["methods"]:
                     self.__send(
                         client,
                         (405, "Not Allowed"),
-                        "Method '%s' on route '%s' is not allowed"
+                        "Method '%s' on route '%s' not allowed"
                         % (request.method, request.path),
                     )
                     return
@@ -55,19 +55,6 @@ class WebServer(BaseServer):
                 else:
                     request.user_parameters.update(route_)
 
-                route_info["handler"](response, request)
-                return
-            elif re.match(f"^{route}$", request.path):
-                if not request.method in route_info["methods"]:
-                    self.__send(
-                        client,
-                        (405, "Not Allowed"),
-                        "Method '%s' on route '%s' is not allowed"
-                        % (request.method, request.path),
-                    )
-                    return
-
-                response = Response(client)
                 route_info["handler"](response, request)
                 return
 
