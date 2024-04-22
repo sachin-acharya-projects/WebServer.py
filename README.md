@@ -16,7 +16,7 @@
 1. **Installation**: Clone or download the `WebServer.py` file into your project directory.
 
     ```powershell
-    pip install WebServer-py
+    pip install WebServer
     ```
 
 2. **Usage**:
