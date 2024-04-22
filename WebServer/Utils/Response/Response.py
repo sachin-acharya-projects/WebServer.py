@@ -1,5 +1,5 @@
-from colorama import init, Fore
 from ...Configurations.Settings import TEMPLATES, BASE_DIR
+from colorama import init, Fore
 from typing import Any
 import socket
 import os
@@ -34,7 +34,7 @@ class Response:
         ):
             filename += ".html"
 
-        filename = BASE_DIR / TEMPLATES / filename
+        filename = os.path.join(os.getcwd(), TEMPLATES, filename)
         if os.path.exists(filename) and os.path.isfile(filename):
             with open(filename) as file:
                 return self.send(file.read(), status_code, status_text)

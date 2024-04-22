@@ -1,6 +1,6 @@
+from ...types import RequestType
+from typing import TypedDict, Literal, Union, Dict
 from urllib.parse import urlparse
-from typing import Dict, TypedDict, Literal, Union
-from ...Types import RequestType
 from dataclasses import dataclass, field
 import re
 
@@ -45,7 +45,7 @@ class Request:
     Connection: Literal["keep-alive", "close"]
     headers: Union[_Headers, Dict[str, str]]
     method: RequestType
-    
+
     user_parameters: Dict[str, str] | None = field(init=False, default=None)
 
     def __post_init__(self):

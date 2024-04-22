@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Literal, Any
+from typing import Literal, Any, TypedDict
 
 __all__ = ['ContentType']
 
@@ -17,3 +17,4 @@ class ContentType:
         default: str = "application/octet-stream",
     ) -> Any:
         return getattr(self, key, default)
+    

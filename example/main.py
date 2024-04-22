@@ -1,4 +1,4 @@
-from Server import WebServer, Request, Response
+from WebServer import WebServer, Request, Response
 
 
 app = WebServer(True)
@@ -26,7 +26,7 @@ def test_name(res: Response, req: Request):
     res.send("Received")
 
 
-@app.route("/users")
+@app.route("/users", methods=["POST"])
 def test(response: Response, request: Request) -> None:
     response.send(
         [
@@ -37,6 +37,10 @@ def test(response: Response, request: Request) -> None:
         jsonify=True,
     )
 
+
+@app.error_route(404)
+def handle_404(response: Response, request: Request):
+    response.send("<title>Response 404</title><h1>404: Not Found</h1>")
 
 if __name__ == "__main__":
     app.run()

@@ -1,2 +1,7 @@
-- Abstract the process and create a module.
-- Expose only relevent content like Settings, etc.
+<!-- Updates to make -->
+
+-   Make Settings.py file configuarable by the user.
+-   Hot Reloading
+-   Hot Restart
+-   Access Control
+-   CORS and CSRF handling
