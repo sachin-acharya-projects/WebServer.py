@@ -1,6 +1,5 @@
 <!-- Updates to make -->
 
--   Make Settings.py file configuarable by the user.
 -   Hot Reloading
 -   Hot Restart
 -   Access Control
