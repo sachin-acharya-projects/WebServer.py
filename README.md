@@ -11,53 +11,85 @@
 -   **Response Rendering**: Render HTML templates for generating dynamic content and return other responses as well.
 -   **Error Handling**: Customizable error handling for managing HTTP errors.
 
-## Getting Started
+## Installation
 
-1. **Installation**: Clone or download the `WebServer.py` file into your project directory.
+You can install `WebServer.py` using pip:
 
-    ```powershell
-    pip install WebServer
-    ```
+```bash
+pip install WebServer
+```
 
-2. **Usage**:
+Alternatively, you can clone or download the repository and include the `WebServer.py` file in your project directory.
 
-    - Import the `WebServer`, `Request`, and `Response` classes into your Python script.
-    - Define routes using the `@app.route()` decorator, specifying the URL path and supported HTTP methods.
-    - Implement functions to handle each route, receiving `Response` and `Request` objects as parameters.
-    - Optionally, define error routes using `@app.error_route()` for custom error handling.
+## Usage
 
-3. **Example**:
+1. Import the necessary classes:
 
     ```python
     from WebServer import WebServer, Request, Response
+    ```
 
-    app = WebServer(True)
+2. Create an instance of the `WebServer` class:
 
-    """Notes
-    response.render("name"), will by-default look for name.html in root/templates directory, which can be changed from Settings.py file.
+    ```python
+    app = WebServer(debug=True)
+    ```
 
-    Also, by-default, statics files (CSS, JS, Images, etc) are looked in root/statics folder. This is also configurable in Settings.py file.
-    """
+3. Define routes using the `@app.route()` decorator, specifying the URL path and supported HTTP methods. For example:
 
-    # Define routes
+    ```python
     @app.route("/", methods=["GET"])
-    def index(response: Response, request: Request) -> None:
-        response.render("index")
+    def home(response: Response, request: Request) -> None:
+        return response.render("index") # This corresponse to index.html
+    ```
 
-    @app.route("/about", methods=["GET"])
-    def about(response: Response, request: Request) -> None:
-        response.render("about")
+4. Implement functions to handle each route, receiving `Response` and `Request` objects as parameters.
 
-    # Run the server
+5. Run the server:
+
+    ```python
     if __name__ == "__main__":
         app.run()
     ```
 
-    [More Examples](./example)
+## Settings
 
-4. **Run**: Execute your Python script to start the web server.
+To configure your project, create a file named `Settings.py` in a directory named `Configurations` at the root of your project. Define the required variables as needed. For example:
 
-5. **Access**: Open your web browser and navigate to `http://localhost:8000` (default) to access your web application.
+```python
+from pathlib import Path
+from typing import List
+
+__all__ = [
+    "BASE_DIR",
+    "DEBUG",
+    "HOST",
+    "PORT",
+    "ALLOWED_HOST",
+    "TEMPLATES",
+    "STATIC_DIRS",
+]
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+
+# Turn off (False) for production.
+DEBUG: bool = True
+
+# Server Configuration
+HOST: str = "127.0.0.1"
+PORT: int = 8000
+ALLOWED_HOST: List[str] = []
+
+# Path to HTML files
+TEMPLATES: str = "templates"  # BASE_DIR / "templates"
+# Path to static folders (Directory for CSS, JS, Image, etc.)
+STATIC_DIRS: List[str] = ["statics"]  # BASE_DIR / "statics"
+```
+
+## Examples
+
+Check out the [example](./example) directory for sample usage and demonstrations.
 
 ## Dependencies
 
@@ -69,8 +101,8 @@ Contributions are welcome! Feel free to fork the repository, make improvements, 
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
 ## Contact
 
-For any inquiries or support, please contact [acharyaraj.webserver@gmail.com](mailto:acharyaraj.webserver@gmail.com) or [GitHub profile](https://github.com/sachin-acharya-projects/).
+For any inquiries or support, please contact [acharyaraj.webserver@gmail.com](mailto:acharyaraj.webserver@gmail.com) or visit the [GitHub profile](https://github.com/sachin-acharya-projects/).

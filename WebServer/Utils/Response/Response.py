@@ -1,4 +1,7 @@
-from ...Configurations.Settings import TEMPLATES, BASE_DIR
+try:
+    exec("from Settings import TEMPLATES, BASE_DIR")
+except:
+    from ...Configurations.Settings import TEMPLATES, BASE_DIR
 from colorama import init, Fore
 from typing import Any
 import socket
@@ -35,6 +38,7 @@ class Response:
             filename += ".html"
 
         filename = os.path.join(os.getcwd(), TEMPLATES, filename)
+        # filename = BASE_DIR / TEMPLATES / filename
         if os.path.exists(filename) and os.path.isfile(filename):
             with open(filename) as file:
                 return self.send(file.read(), status_code, status_text)
