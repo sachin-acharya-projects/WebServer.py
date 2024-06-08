@@ -1,3 +1,4 @@
 __pycache__
 base
 !WebServer/Base
+*.egg-info
