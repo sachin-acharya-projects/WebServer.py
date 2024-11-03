@@ -1,18 +1,17 @@
-try:
-    exec("from Settings import TEMPLATES, BASE_DIR")
-except:
-    from ...Configurations.Settings import TEMPLATES, BASE_DIR
-from colorama import init, Fore
+from colorama import Fore, init
 from typing import Any
 import socket
 import os
 import json
 
+
+try:
+    exec("from settings import VIEWS")
+except:
+    from WebServer.config.settings import VIEWS
+
 init(True)
-
-
 __all__ = ["Response"]
-
 
 class Response:
     def __init__(self, client: socket.socket) -> None:
@@ -37,7 +36,7 @@ class Response:
         ):
             filename += ".html"
 
-        filename = os.path.join(os.getcwd(), TEMPLATES, filename)
+        filename = os.path.join(os.getcwd(), VIEWS, filename)
         # filename = BASE_DIR / TEMPLATES / filename
         if os.path.exists(filename) and os.path.isfile(filename):
             with open(filename) as file:

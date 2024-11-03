@@ -1,3 +1,15 @@
-from typing import Literal, List, Tuple, Callable, Any, NoReturn, Self, Dict, Any, TypedDict, TypeVar
+from typing import (
+    Literal,
+    Tuple,
+    Callable,
+    NoReturn,
+    Self,
+    TypedDict,
+    TypeVar,
+    Union,
+    List,
+    Any,
+    Dict,
+)
 
-RequestType = Literal["GET", "POST", "PUT", "DELETE", "PATCH", "UPDATE"]
+RequestMethod = Literal["GET", "POST", "PUT", "DELETE", "PATCH", "UPDATE"]

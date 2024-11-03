@@ -1,20 +1,19 @@
-from ..types import Callable, List, RequestType
-from ..Utils.Request import Request
-from ..Utils.Response import Response
+from WebServer.types import *
+from WebServer.http.Request import Request
+from WebServer.http.Response import Response
 
 from abc import ABC
 
 import socket
 
-__all__ = ["ServerBase"]
+__all__ = ["AbstractBase"]
 
 _HandleType = Callable[[Response, Request], None]
 
-class ServerBase(ABC):
+class AbstractBase(ABC):
     def __init__(self) -> None: ...
-
     def route(
-        self, path: str, methods: List[RequestType] | None = None
+        self, path: str, methods: List[RequestMethod] | None = None
     ) -> Callable[[_HandleType], _HandleType]:
         """Create a Route using this decorator.
 

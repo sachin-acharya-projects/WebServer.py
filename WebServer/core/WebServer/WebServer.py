@@ -1,16 +1,16 @@
-from socket import socket
+from WebServer.core._base import AbstractBase
+from WebServer.utils import extract_route_pattern
+from WebServer.http.Response import Response
+from WebServer.http.Request import create_request_object
+from WebServer.config.settings import STATIC_DIRS, BASE_DIR
 
-from ..Base import ServerBase
-from ..Utils.Request import create_request_object
-from ..Utils.Response import Response
-from ..Utils.utils import extract_route_pattern
-from ..Configurations.Settings import STATIC_DIRS, BASE_DIR
+from socket import socket
 import os
 
 __all__ = ["WebServer"]
 
 
-class WebServer(ServerBase):
+class WebServer(AbstractBase):
     def __init__(self, debug: bool = True) -> None:
         super().__init__()
         self._isDebug = debug
@@ -74,7 +74,7 @@ class WebServer(ServerBase):
             temp["handler"](response, request)
             return
 
-        filepath = BASE_DIR / "WebServer" / "Templates" / "Errors" / "404.html"
+        filepath = BASE_DIR / "WebServer" / "views" / "errors" / "NotFound.html"
         with open(filepath) as file:
             self.send(
                 client,

@@ -106,3 +106,26 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 ## Contact
 
 For any inquiries or support, please contact [acharyaraj.webserver@gmail.com](mailto:acharyaraj.webserver@gmail.com) or visit the [GitHub profile](https://github.com/sachin-acharya-projects/).
+
+
+```bash
+.
+├── app/
+│   ├── settings.py
+│   ├── __init__.py
+│   └── other_app_configurations.py
+├── static/
+│   ├── csses
+│   └── javascripts
+├── media/
+│   ├── images
+│   └── videos
+├── public/
+│   ├── logo
+│   ├── robot.txt
+│   └── manifest.json
+├── views/
+│   ├── index.html
+│   └── Other HTMLs
+└── main.py
+```
