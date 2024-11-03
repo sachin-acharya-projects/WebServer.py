@@ -1,7 +1,6 @@
-from ...types import RequestType
-from typing import TypedDict, Literal, Union, Dict
 from urllib.parse import urlparse
 from dataclasses import dataclass, field
+from WebServer.types import TypedDict, Literal, Union, Dict, RequestMethod
 import re
 
 
@@ -33,7 +32,6 @@ _Headers = TypedDict(
 class Request:
     url: str
 
-    # ? Dynamic Fields
     path: str = field(init=False)
     scheme: str = field(init=False)
     netloc: str = field(init=False)
@@ -44,7 +42,7 @@ class Request:
     Host: str
     Connection: Literal["keep-alive", "close"]
     headers: Union[_Headers, Dict[str, str]]
-    method: RequestType
+    method: RequestMethod
 
     user_parameters: Dict[str, str] | None = field(init=False, default=None)
 
