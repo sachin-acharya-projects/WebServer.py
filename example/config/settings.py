@@ -1,2 +1,2 @@
 PORT: int = 8000
-TEMPLATES: str = "templates"
+TEMPLATE_DIRS: str = "views"

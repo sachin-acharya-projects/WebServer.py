@@ -1,19 +1,20 @@
-from WebServer.utils import extract_route_pattern
-from WebServer.http.response import Response
-from WebServer.http.request import Request, create_request_object  # type: ignore
 from WebServer.types import Callable, List, RequestMethod, Dict, Tuple
-from WebServer.config import STATIC_DIRS, BASE_DIR, HOST, PORT, DEBUG
+from WebServer.config import HOST, PORT, DEBUG, BASE_DIR
+from WebServer.http.request import Request
+from WebServer.http.response import Response
 
-import socket
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from colorama import init, Fore
+
 import datetime
 import threading
 import atexit
-import mimetypes
+
+import socket
 import os
 
-__all__ = ["WebServer"]
+__all__ = ["AbstractBase"]
 init(True)
 
 _HandleType = Callable[[Request, Response], None]
@@ -29,12 +30,12 @@ class _RouteRecordType(object):
 class _ErrorRecordType(object):
     handler: _HandleType
 
-class WebServer(object):
-    def __init__(self, debug: bool = True) -> None:
+
+class AbstractBase(ABC):
+    def __init__(self) -> None:
         self._routes: Dict[str, _RouteRecordType] = {}
         self._error_handlers: Dict[int, _ErrorRecordType] = {}
-        self._isDebug = debug
-    
+
     def route(
         self, path: str, methods: List[RequestMethod] | None = None
     ) -> Callable[[_HandleType], _HandleType]:
@@ -58,72 +59,11 @@ class WebServer(object):
         date = f"{date:[%d of %B, %Y %I:%M:S %p]}"
         if DEBUG:
             print(f"{date:<30}", *messages)
-    
+
+    @abstractmethod
     def handleClient(self, client: socket.socket) -> None:
-        user_requests = client.recv(1024).decode()
-        request = create_request_object(user_requests)
+        raise NotImplementedError("Abstract method must be implemented in child class.")
 
-        if not request.method or not request.path:
-            client.close()
-            return
-
-        if self._isDebug:
-            self.log(request.method, request.path)
-
-        # Handling Routing
-        for route, route_info in self._routes.items():
-            route_ = extract_route_pattern(route, request.path)
-            if isinstance(route_, dict):
-                response = Response(client)
-                if request.method not in route_info.methods:
-                    temp = self._error_handlers.get(405, None)
-                    if temp:
-                        temp.handler(request, response)
-                        return
-
-                    self.send(
-                        client,
-                        (405, "Not Allowed"),
-                        "Method '%s' on route '%s' not allowed"
-                        % (request.method, request.path),
-                    )
-                    return
-
-                if not request.user_parameters:
-                    request.user_parameters = route_
-                else:
-                    request.user_parameters.update(route_)
-
-                route_info.handler(request, response)
-                return
-
-        # Handling Static Content
-        for static in STATIC_DIRS:
-            filename = os.path.join(static, request.path.lstrip("/"))
-            if os.path.exists(filename) and os.path.isfile(filename):
-                with open(filename, "rb") as file:
-                    mimetype, _ = mimetypes.guess_type(filename)
-                    if mimetype is None:
-                        mimetype = ""
-                    #! Change static serve; add cache control for static
-                    self.send(client, (200, "OK"), file.read(), mimetype)
-                    return
-
-        #! Handle Error Condition (Make user configurable)
-        temp = self._error_handlers.get(404, None)
-        if temp:
-            response = Response(client)
-            temp.handler(request, response)
-            return
-
-        filepath = BASE_DIR / "views" / "errors" / "NotFound.html"
-        with open(filepath) as file:
-            self.send(
-                client,
-                (404, "Not Found"),
-                file.read().replace("{{ pathname }}", request.path),
-                "text/html",
-            )
     def send(
         self,
         client: socket.socket,
@@ -159,8 +99,9 @@ class WebServer(object):
         status_code, status_text = status
         error_template = (
             BASE_DIR
-            / "views"
-            / "errors"
+            / "WebServer"
+            / "Templates"
+            / "Errors"
             / (str(status_code) + ".html")
         )
         temp = self._error_handlers.get(status_code, None)

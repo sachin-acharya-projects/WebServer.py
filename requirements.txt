@@ -1,6 +1,0 @@
-# DevDependencies
-setuptools
-djlint
-
-# Dependencies
-colorama

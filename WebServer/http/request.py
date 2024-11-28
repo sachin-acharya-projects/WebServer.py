@@ -1,3 +1,4 @@
+from typing import cast
 from urllib.parse import urlparse
 from dataclasses import dataclass, field
 from WebServer.types import TypedDict, Literal, Union, Dict, RequestMethod
@@ -27,6 +28,8 @@ _Headers = TypedDict(
     },
 )
 
+ConnectionType = Literal["keep-alive", "close"]
+
 
 @dataclass
 class Request:
@@ -40,7 +43,7 @@ class Request:
     fragment: Dict[str, str] = field(init=False)
 
     Host: str
-    Connection: Literal["keep-alive", "close"]
+    Connection: ConnectionType
     headers: Union[_Headers, Dict[str, str]]
     method: RequestMethod
 
@@ -78,17 +81,20 @@ def create_request_object(network_content: str) -> Request:
         ...
     return Request(
         Host=host,
-        Connection=connection,
-        headers={
-            **network_content_obj,
-            "Cookie": cookie,
-            "Cache_Control": network_content_obj.get("Cache-Control", None),
-            "Upgrade_Insecure_Requests": network_content_obj.get(
-                "Upgrade-Insecure-Requests", None
-            ),
-            "Referer": network_content_obj.get("Referer", None),
-            "Sec_Fetch_User": network_content_obj.get("Sec-Fetch-User", None),
-        },
-        method=method.upper() if method else "",
+        Connection=cast(ConnectionType, connection),
+        headers=cast(
+            _Headers | Dict[str, str],
+            {
+                **network_content_obj,
+                "Cookie": cookie,
+                "Cache_Control": network_content_obj.get("Cache-Control", None),
+                "Upgrade_Insecure_Requests": network_content_obj.get(
+                    "Upgrade-Insecure-Requests", None
+                ),
+                "Referer": network_content_obj.get("Referer", None),
+                "Sec_Fetch_User": network_content_obj.get("Sec-Fetch-User", None),
+            },
+        ),
+        method=cast(RequestMethod, method.upper() if method else "GET"),
         url="http://" + host + path,
     )

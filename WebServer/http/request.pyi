@@ -22,8 +22,14 @@ _Headers = TypedDict(
     },
 )
 
+ConnectionType = Literal["keep-alive", "close"]
+
 @dataclass
 class Request:
+    """This class is wrapper for the incomming Http Request from the client.
+    This also extract all the data received from the client for easier access.
+    """
+
     url: str
 
     path: str = field(init=False)
@@ -34,10 +40,8 @@ class Request:
     fragment: Dict[str, str] = field(init=False)
 
     Host: str
-    Connection: Literal["keep-alive", "close"]
+    Connection: ConnectionType
     headers: Union[_Headers, Dict[str, str]]
     method: RequestMethod
 
     user_parameters: Dict[str, str] | None = field(init=False, default=None)
-
-    def __post_init__(self): ...

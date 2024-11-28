@@ -1,5 +1,4 @@
-from typing import Literal, List, Tuple, Callable, Any, NoReturn
-from functools import wraps
+from typing import Literal, List, Tuple, Callable, Any
 import threading
 import socket
 import re
@@ -57,7 +56,7 @@ class WebSocket:
 
         client_socket.close()
 
-    def run(self) -> NoReturn:
+    def run(self):
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_socket.bind((self.host, self.port))
@@ -72,7 +71,6 @@ class WebSocket:
                 )
                 client_handler.start()
             except KeyboardInterrupt:
-                client_socket.close()
                 server_socket.close()
                 break
 
@@ -80,17 +78,17 @@ class WebSocket:
 app = WebSocket("127.0.0.1", 5500)
 
 
-@app.route(path="/", methods=["GET"])
+@app.route(path="/", methods=["GET"]) # type: ignore
 def index():
     return "<h1>Hello World</h1>", 200
 
 
-@app.route(path="/home", methods=["GET"])
+@app.route(path="/home", methods=["GET"]) # type: ignore
 def home():
     return render("index.html"), 200
 
 
-@app.route(path="/name", methods=["GET"])
+@app.route(path="/name", methods=["GET"]) # type: ignore
 def return_json():
     import json
 

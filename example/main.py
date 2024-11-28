@@ -1,46 +1,46 @@
 from WebServer import WebServer, Request, Response
 
-
 app = WebServer(True)
 
 
-# Setting up routing
 @app.route("/", methods=["GET"])
-def index(response: Response, request: Request) -> None:
-    response.render("index")
+def index(_: Request, response: Response):
+    response.render("index.html", name="Sachin Acharya")
 
 
 @app.route("/about", methods=["GET"])
-def about(response: Response, request: Request) -> None:
-    response.render("about")
+def about(_: Request, response: Response):
+    response.render("about.html")
 
 
 @app.route("/contact", methods=["GET"])
-def contact(response: Response, request: Request) -> None:
-    response.render("contact")
+def contact(_: Request, response: Response):
+    response.render("contact.html")
 
 
 @app.route("/test/<name>/<userid>")
-def test_name(res: Response, req: Request):
-    print(req.user_parameters)
-    res.send("Received")
+def test_name(request: Request, response: Response):
+    print(request.user_parameters)
+    response.send("Received")
 
 
-@app.route("/users", methods=["POST"])
-def test(response: Response, request: Request) -> None:
+@app.route("/users", methods=["GET", "POST"])
+def get_users(_: Request, response: Response):
     response.send(
         [
-            {"name": "Sachin Acharya", "age": 24},
-            {"name": "Nancy Jewel Mc.Donie", "age": 24},
-            {"name": "Peyton List", "age": 23},
+            [
+                {"name": "Sachin Acharya", "age": 24},
+                {"name": "Nancy Jewel Mc.Donie", "age": 24},
+                {"name": "Peyton List", "age": 23},
+            ]
         ],
-        jsonify=True,
+        None,
+        {
+            "Authorization": "Dickie",
+            "Content-Type": "text/plain"
+        }
     )
 
-
-@app.error_route(404)
-def handle_404(response: Response, request: Request):
-    response.send("<title>Response 404</title><h1>404: Not Found</h1>")
 
 if __name__ == "__main__":
     app.run()
