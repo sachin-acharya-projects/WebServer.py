@@ -1,7 +1,11 @@
-<!-- Updates to make -->
+# Task to Do
 
--   Hot Reloading
--   Hot Restart
--   Access Control
--   CORS and CSRF handling
--   React Like Frameworking
+These are the tasks that are to be completed to make this package more intuitive. The tasks are enlisted below:
+
+-   Hot Reloading and Hot Restart
+-   Cors
+-   Cross-site Request Forgery (CSRF) Handling
+-   Component based structure similar to Flutter.
+-   Server-side as well as Client-side rendering
+-   Jinja Template
+-   'Settings' Import Methods

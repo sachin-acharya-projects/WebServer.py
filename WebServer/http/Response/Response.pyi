@@ -1,5 +1,4 @@
 from typing import Any
-import socket
 
 class Response:
     def render(

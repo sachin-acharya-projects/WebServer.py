@@ -1,7 +1,7 @@
-from ..types import *
-from ..Configurations.Settings import HOST, PORT, DEBUG, BASE_DIR
-from ..Utils.Request import Request
-from ..Utils.Response import Response
+from WebServer.types import *
+from WebServer.config.settings import HOST, PORT, DEBUG, BASE_DIR
+from WebServer.http.Request import Request
+from WebServer.http.Response import Response
 
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
@@ -14,7 +14,7 @@ import atexit
 import socket
 import os
 
-__all__ = ["ServerBase"]
+__all__ = ["AbstractBase"]
 init(autoreset=True)
 
 _HandleType = Callable[[Response, Request], None]
@@ -22,7 +22,7 @@ _HandleType = Callable[[Response, Request], None]
 
 class _RouteRecordType(TypedDict):
     handler: Callable[[Response, Request], None]
-    methods: List[RequestType]
+    methods: List[RequestMethod]
 
 
 class _ErrorRecordType(TypedDict):
@@ -35,7 +35,7 @@ class _ContentType:
     CSS: str = "text/css"
     JAVASCRIPT: str = "application/javascript"
     JSON: str = "application/json"
-    OCTSTREAM: str = "application/octet-stream"  # ? For Binary
+    OCTSTREAM: str = "application/octet-stream"
 
     def get(
         self,
@@ -45,7 +45,7 @@ class _ContentType:
         return getattr(self, key, default)
 
 
-class ServerBase(ABC):
+class AbstractBase(ABC):
     def __init__(self) -> None:
         "Base class for WebServer"
         self._routes: Dict[str, _RouteRecordType] = {}
@@ -53,7 +53,7 @@ class ServerBase(ABC):
         self._ContentType = _ContentType()
 
     def route(
-        self, path: str, methods: List[RequestType] | None = None
+        self, path: str, methods: List[RequestMethod] | None = None
     ) -> Callable[[_HandleType], _HandleType]:
         """Create a Route using this decorator.
 
@@ -65,7 +65,7 @@ class ServerBase(ABC):
 
         Args:
             path (str): URL Fragment to which, the handler function is executed.
-            methods (List[RequestType] | None, optional): Allowed HTTP Methods to which this method is triggered. Defaults to None.
+            methods (List[RequestMethod] | None, optional): Allowed HTTP Methods to which this method is triggered. Defaults to None.
 
         Returns:
             Callable[[_HandleType], _HandleType]: Callable method that handles the routing specific operations.
@@ -170,7 +170,11 @@ class ServerBase(ABC):
         """
         status_code, status_text = status
         error_template = (
-            BASE_DIR / "WebServer" / "Templates" / "Errors" / (str(status_code) + ".html")
+            BASE_DIR
+            / "WebServer"
+            / "Templates"
+            / "Errors"
+            / (str(status_code) + ".html")
         )
         temp = self._error_handers.get(status_code, None)
         if temp:

@@ -39,7 +39,7 @@ Alternatively, you can clone or download the repository and include the `WebServ
 
     ```python
     @app.route("/", methods=["GET"])
-    def home(response: Response, request: Request) -> None:
+    def home(request: Request, response: response) -> None:
         return response.render("index") # This corresponse to index.html
     ```
 
@@ -62,12 +62,16 @@ from typing import List
 
 __all__ = [
     "BASE_DIR",
-    "DEBUG",
+
     "HOST",
     "PORT",
+    "DEBUG",
     "ALLOWED_HOST",
-    "TEMPLATES",
+
+    "TEMPLATE_DIRS",
     "STATIC_DIRS",
+    "PUBLIC_DIR",
+    "MEDIA_DIR",
 ]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -82,9 +86,13 @@ PORT: int = 8000
 ALLOWED_HOST: List[str] = []
 
 # Path to HTML files
-TEMPLATES: str = "templates"  # BASE_DIR / "templates"
+TEMPLATE_DIRS: str | List[str] = "templates"  # BASE_DIR / "templates"
 # Path to static folders (Directory for CSS, JS, Image, etc.)
 STATIC_DIRS: List[str] = ["statics"]  # BASE_DIR / "statics"
+# Path for public directory (where non-static files are located.)
+PUBLIC_DIR: str = "public"
+# Path where media files are stored.
+MEDIA_DIR: str = "media"
 ```
 
 ## Examples
@@ -106,3 +114,25 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 ## Contact
 
 For any inquiries or support, please contact [acharyaraj.webserver@gmail.com](mailto:acharyaraj.webserver@gmail.com) or visit the [GitHub profile](https://github.com/sachin-acharya-projects/).
+
+```bash
+.
+├── config/
+│   ├── settings.py
+│   ├── __init__.py
+│   └── other_app_configurations.py
+├── static/
+│   ├── csses
+│   └── javascripts
+├── media/
+│   ├── images
+│   └── videos
+├── public/
+│   ├── logo
+│   ├── robot.txt
+│   └── manifest.json
+├── views/
+│   ├── index.html
+│   └── Other HTMLs
+└── main.py
+```
