@@ -1,7 +1,7 @@
-from WebServer.types import Callable, List, RequestMethod, Dict, Tuple
-from WebServer.config import HOST, PORT, DEBUG, BASE_DIR
-from WebServer.http.request import Request
-from WebServer.http.response import Response
+from NetJin.types import Callable, List, RequestMethod, Dict, Tuple
+from NetJin.config import HOST, PORT, DEBUG, BASE_DIR
+from NetJin.http.request import Request
+from NetJin.http.response import Response
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

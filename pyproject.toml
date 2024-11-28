@@ -1,11 +1,10 @@
 [project]
-name = "WebServer"
+name = "NetJin"
 version = "1.0.0"
-description = "WebServer.py is a lightweight web server implemented in Python using sockets. It provides a simple implementation of the HTTP protocol, allowing users to build and run web applications with ease."
+description = "NetJin is a lightweight web server implemented in Python using sockets. It provides a simple implementation of the HTTP protocol, allowing users to build and run web applications with ease."
 readme = "README.md"
-license = "ISC"
 requires-python = ">=3.13"
-urls = { homepage = "https://github.com/sachin-acharya-projects/WebServer.py" }
+urls = { Homepage = "https://github.com/sachin-acharya-projects/WebServer.py", Issues = "https://github.com/sachin-acharya-projects/WebServer.py/issues" }
 keywords = ["Webserver", "WebFramework", "PythonFramework"]
 authors = [
     { name = "Sachin Acharya", email = "webserver.py.connect@gmail.com" },
@@ -16,6 +15,10 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Development Status :: 3 - Alpha",
@@ -23,7 +26,7 @@ classifiers = [
 dependencies = ["colorama>=0.4.6", "jinja2>=3.1.4"]
 
 [dependency-groups]
-dev = ["djlint>=1.36.1", "ruff>=0.8.0"]
+dev = ["djlint>=1.36.2", "ruff>=0.8.0"]
 
 [build-system]
 requires = ["hatchling"]

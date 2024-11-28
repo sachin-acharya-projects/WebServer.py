@@ -1,8 +1,8 @@
-# WebServer.py - Simple Python Web Server Implementation
+# NetJin - Simple Python Web Server Implementation
 
 ## Overview
 
-`WebServer.py` is a lightweight web server implemented in Python using sockets. It provides a simple implementation of the HTTP protocol, allowing users to build and run web applications with ease.
+`NetJin` is a lightweight web server implemented in Python using sockets. It provides a simple implementation of the HTTP protocol, allowing users to build and run web applications with ease.
 
 ## Features
 
@@ -13,13 +13,13 @@
 
 ## Installation
 
-You can install `WebServer.py` using pip:
+You can install `NetJin` using pip:
 
 ```bash
 pip install WebServer
 ```
 
-Alternatively, you can clone or download the repository and include the `WebServer.py` file in your project directory.
+Alternatively, you can clone or download the repository and include the `NetJin` file in your project directory.
 
 ## Usage
 

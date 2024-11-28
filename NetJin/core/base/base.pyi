@@ -1,6 +1,6 @@
-from WebServer.types import Callable, List, RequestMethod, Tuple
-from WebServer.http.request import Request
-from WebServer.http.response import Response
+from NetJin.types import Callable, List, RequestMethod, Tuple
+from NetJin.http.request import Request
+from NetJin.http.response import Response
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

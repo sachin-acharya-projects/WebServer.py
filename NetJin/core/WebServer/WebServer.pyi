@@ -1,6 +1,6 @@
-from WebServer.http.response import Response
-from WebServer.http.request import Request
-from WebServer.types import Callable, List, RequestMethod, Tuple
+from NetJin.http.response import Response
+from NetJin.http.request import Request
+from NetJin.types import Callable, List, RequestMethod, Tuple
 
 import socket
 from dataclasses import dataclass

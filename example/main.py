@@ -1,4 +1,4 @@
-from WebServer import WebServer, Request, Response
+from NetJin import WebServer, Request, Response
 
 app = WebServer(True)
 

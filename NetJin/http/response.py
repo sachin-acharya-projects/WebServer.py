@@ -15,7 +15,7 @@ TEMPLATE_DIRS = None
 try:
     exec("from settings import TEMPLATE_DIRS")
 except ModuleNotFoundError:
-    from WebServer.config.settings import TEMPLATE_DIRS
+    from NetJin.config.settings import TEMPLATE_DIRS
 
 init(True)
 

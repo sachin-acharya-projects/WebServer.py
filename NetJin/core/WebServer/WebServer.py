@@ -1,8 +1,8 @@
-from WebServer.utils import extract_route_pattern
-from WebServer.http.response import Response
-from WebServer.http.request import Request, create_request_object  # type: ignore
-from WebServer.types import Callable, List, RequestMethod, Dict, Tuple
-from WebServer.config import STATIC_DIRS, BASE_DIR, HOST, PORT, DEBUG
+from NetJin.utils import extract_route_pattern
+from NetJin.http.response import Response
+from NetJin.http.request import Request, create_request_object  # type: ignore
+from NetJin.types import Callable, List, RequestMethod, Dict, Tuple
+from NetJin.config import STATIC_DIRS, BASE_DIR, HOST, PORT, DEBUG
 
 import socket
 from dataclasses import dataclass

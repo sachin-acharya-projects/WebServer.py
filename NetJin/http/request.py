@@ -1,7 +1,7 @@
 from typing import cast
 from urllib.parse import urlparse
 from dataclasses import dataclass, field
-from WebServer.types import TypedDict, Literal, Union, Dict, RequestMethod
+from NetJin.types import TypedDict, Literal, Union, Dict, RequestMethod
 import re
 
 

@@ -1,4 +1,4 @@
-from WebServer.types import TypedDict, Literal, Union, Dict, RequestMethod
+from NetJin.types import TypedDict, Literal, Union, Dict, RequestMethod
 from dataclasses import dataclass, field
 
 _Headers = TypedDict(

@@ -11,5 +11,3 @@ wheels/
 
 # Cache
 .uv_cache
-
-setup.py
