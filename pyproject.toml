@@ -1,9 +1,9 @@
 [project]
 name = "NetJin"
-version = "1.0.0"
+version = "1.1.1"
 description = "NetJin is a lightweight web server implemented in Python using sockets. It provides a simple implementation of the HTTP protocol, allowing users to build and run web applications with ease."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 urls = { Homepage = "https://github.com/sachin-acharya-projects/WebServer.py", Issues = "https://github.com/sachin-acharya-projects/WebServer.py/issues" }
 keywords = ["Webserver", "WebFramework", "PythonFramework"]
 authors = [

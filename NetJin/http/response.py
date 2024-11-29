@@ -13,9 +13,9 @@ import json
 
 TEMPLATE_DIRS = None
 try:
-    exec("from settings import TEMPLATE_DIRS")
+    exec("from config.settings import TEMPLATE_DIRS")
 except ModuleNotFoundError:
-    from NetJin.config.settings import TEMPLATE_DIRS
+    from NetJin.config import TEMPLATE_DIRS
 
 init(True)
 
