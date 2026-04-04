@@ -1,0 +1,46 @@
+1. Create a scaffold cli to generate the project. (P2)
+2. Modularize all the codes for core library (WebServer.py)
+3. Keep consistent .pyi file so that only specific exposed settings be accessible to pylance and type checker.
+4. Update templates for better error context
+5. Add support for the JSON data (including file data-type) and API implementation. Currently it supports JSON but not the same way as a proper API based framework.
+
+6. (In example or When using the Library) Currently we are completely decorator based which is good but it is not portable or it is difficult to modularize the code (even if it is possible, it is hacky techinque). While keeping it decorator based, separating route, views, services and config, it can be modularized.
+
+7. Just like what we have currently, user can override specific settings options (Currently Implementation) but it is not as clear because unless user reads docs, they don't know what to expect in the config
+
+8. During API programming, introducing pydantic for proper data validation would be good. This should actually be enforced (user can opt out but pydantic should be default suggestion).
+
+9. Graceful termination: When user want to turn off the server they can do so without leaking any connection or processes or threads. Gracefully complete shutdown.
+
+10. Variables Name, Functions Name, Class Names, and Types named: Make them production grade naming convention. Make standard naming convention.
+
+11. Add linting and formatting for the project (not API programming)
+
+12. Hot Reloading as well as Hot Restart of the server. This is so for the rendered views as well. Ofcouse only for development phase only.
+
+13. Add options to configure different API settings which includes but not limiting to CORS.
+
+14. POST, PUT, PATCH, and DELETE method must support the use of CSRF token to prevent forgery of request.
+
+15. Server-side rendering as well as client-side rendering support. Currently we are supporting SSR using jinja2 but am not sure of client-side rendering support is even needed.
+
+16. Serializer support using pydantic. This will work similar to DRF's serializer but this is very simpler version of that serializer. It just performs data validation, CRUD on the database. Offer config settings for the different fields and all. The most important of it is it support nested serializer for both READ and WRITE (which DRF doesn't support.) Although it will support WRITE on nested, some config must be made to serializer because there must be reason why DRF doesn't allow so we don't want to be oversmart right-off the bat and try to solve the problem without researching. (p2)
+
+17. Similar to JSX and Flutter, implement hierarchial frontend development. For example, (p3)
+
+```python
+Div(
+    child=Div(
+        child=Div(
+            child=Text("Hello World")
+        )
+    )
+)
+```
+
+Where Div is a functional component (using either class or function - whichever is more extensible).
+
+
+or it be better if this supports JSX directly. In that case, we don't have to "reinvent the wheel"
+
+18. It should be able to handle multiple request. Currently once client connects, and ends connect, it cannot reconnect. That needs fixing

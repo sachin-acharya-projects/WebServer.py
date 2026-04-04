@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Glow Tech - {{ product.name if product else "Product Details" }}{% endblock %}
+
+{% block content %}
+<section class="product-detail">
+    <div class="container">
+        <div class="product-detail-grid">
+            <div class="product-gallery">
+                <div class="main-image-placeholder">
+                    <svg class="product-svg-large" viewBox="0 0 100 100">
+                        <rect width="100" height="100" fill="#f0f0f0" rx="4" />
+                        <circle cx="50" cy="50" r="30" fill="#3498db" />
+                    </svg>
+                </div>
+            </div>
+            <div class="product-specs">
+                <h1>{{ product.name if product else "Premium Wireless Earbuds" }}</h1>
+                <p class="price large">${{ product.price if product else "129.99" }}</p>
+                <div class="description">
+                    <p>{{ product.description if product else "Experience crystal-clear sound with our latest noise-canceling technology. Designed for comfort and durability, these earbuds are perfect for your daily commute or intense workouts." }}</p>
+                </div>
+                <div class="actions">
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" value="1" min="1" max="10">
+                    </div>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                </div>
+                <div class="features">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Up to 30 hours of battery life</li>
+                        <li>Active Noise Cancellation</li>
+                        <li>IPX7 Water Resistance</li>
+                        <li>Bluetooth 5.2 connectivity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

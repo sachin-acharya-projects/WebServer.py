@@ -1,26 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    
-    <title>(Home) | MyServer</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/app.js"></script>
-</head>
+{% block title %}Glow Tech - Home{% endblock %}
 
-<body>
-    <h1>Welcome to Home ({{ name }})</h1>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-    </nav>
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-text">
+            <h1>Experience the Future, Today.</h1>
+            <p>Our premium collection of modern gadgets is designed to enhance your lifestyle.</p>
+            <a href="/products" class="btn btn-primary">Shop Collection</a>
+        </div>
+        <div class="hero-image-placeholder">
+            <!-- Simulated image using CSS -->
+            <div class="glow-sphere"></div>
+        </div>
+    </div>
+</section>
 
-    <img src="/images/nancy.jpg" height="" width="" alt="Nancy Jewel Mc.Donie">
-</body>
+<section class="featured-products">
+    <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid">
+            {% for product in featured_products %}
+            <div class="product-card">
+                <div class="product-image-container">
+                    <!-- Placeholder SVG for product image -->
+                    <svg class="product-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                        <rect width="100" height="100" fill="#f0f0f0" rx="8" />
+                        <circle cx="50" cy="50" r="25" fill="#3498db" opacity="0.8" />
+                        <text x="50" y="55" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">Glow {{ loop.index }}</text>
+                    </svg>
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p class="price">${{ product.price }}</p>
+                    <a href="/products/{{ product.id }}" class="btn btn-outline">View Details</a>
+                </div>
+            </div>
+            {% else %}
+            <!-- Mock items for when no server data is available for visual layout -->
+            {% for i in range(1, 4) %}
+            <div class="product-card">
+                <div class="product-image-container">
+                    <svg class="product-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                        <rect width="100" height="100" fill="#f0f0f0" rx="8" />
+                        <circle cx="50" cy="50" r="25" fill="#3498db" opacity="0.8" />
+                        <text x="50" y="55" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">Gadget {{ i }}</text>
+                    </svg>
+                </div>
+                <div class="product-info">
+                    <h3>Premium Gadget {{ i }}</h3>
+                    <p class="price">$199.99</p>
+                    <a href="#" class="btn btn-outline">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-</html>
+<section class="newsletter">
+    <div class="container text-center">
+        <h2>Stay in the Loop</h2>
+        <p>Subscribe for exclusive updates and early access to our newest gadgets.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required aria-label="Newsletter email">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

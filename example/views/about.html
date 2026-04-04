@@ -1,29 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
+{% extends "base.html" %}
 
-        <title>(About) | MyServer</title>
-        <link rel="stylesheet" href="/css/style.css" />
-        <script src="/js/app.js"></script>
-    </head>
+{% block title %}Glow Tech - About Us{% endblock %}
 
-    <body>
-        <h1>Welcome to About</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-        </nav>
+{% block content %}
+<section class="page-header">
+    <div class="container text-center">
+        <h1>Our Story</h1>
+        <p>Innovation at every step.</p>
+    </div>
+</section>
 
-        <img
-            src="/images/nancy-1.jpg"
-            height=""
-            width=""
-            alt="Nancy Jewel Mc.Donie"
-        />
-    </body>
-</html>
+<section class="about-content">
+    <div class="container">
+        <div class="grid-2">
+            <div class="about-text">
+                <h2>Our Mission</h2>
+                <p>Glow Tech was founded in 2026 with a single goal: to make premium technology accessible and beautiful. We believe that gadgets shouldn't just be tools; they should be experiences that enrich your daily life.</p>
+                <p>Our team of designers and engineers work tirelessly to create products that blend seamless functionality with modern aesthetics.</p>
+            </div>
+            <div class="about-image">
+                <div class="placeholder-box">
+                    <svg viewBox="0 0 100 100">
+                        <rect width="100" height="100" fill="#2c3e50" rx="8"/>
+                        <circle cx="50" cy="50" r="30" fill="#3498db" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
